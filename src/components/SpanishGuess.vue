@@ -89,12 +89,9 @@ function checkWord(word) {
 </template>
 
 <style>
-/* * 1. Definición de Variables CSS para Dark Mode 
- * Usamos @media (prefers-color-scheme: dark) para cambiar los colores.
- */
+
 
 :root {
-  /* Modo Claro (Default) */
   --bg-color: #f4f4f9; /* Fondo muy claro */
   --card-bg: #ffffff;  /* Fondo de las tarjetas/botones */
   --text-color: #1e1e1e; /* Color del texto principal */

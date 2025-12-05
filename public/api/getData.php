@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 }
 
 // Consulta ejemplo
-$sql = "SELECT traduccion_palabra FROM palabras WHERE traduccion_palabra NOT LIKE '% %'";
+$sql = "SELECT ingles_palabra, traduccion_palabra FROM palabras WHERE traduccion_palabra NOT LIKE '% %'";
 $result = $conn->query($sql);
 
 $data = [];

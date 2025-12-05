@@ -3,8 +3,11 @@ import EnglishGuess from './components/EnglishGuess.vue';
 import SpanishGuess from './components/SpanishGuess.vue';
 import TitleComponent from './components/TitleComponent.vue';
 import { ref } from 'vue';
+import TwentyWords from './components/TwentyWords.vue';
+import IrregularVerbs from './components/IrregularVerbs.vue';
+import WriteWord from './components/WriteWord.vue';
 
-const gameType = ref("english")
+const gameType = ref("write")
 
 function changeGame(selectedGameType) {
     gameType.value = selectedGameType
@@ -16,12 +19,18 @@ function changeGame(selectedGameType) {
     <TitleComponent />
     <div class="game-selection">
         <button id="eng-to-spa" class="choose-game" @click="changeGame('english')">Inglés a español</button>
-        <button id="spa-to-eng" class="choose-game" @click="changeGame('spanish')">Español a Ingles</button>
+        <button id="spa-to-eng" class="choose-game" @click="changeGame('spanish')">Español a inglés</button>
+        <button id="twenty-words" class="choose-game" @click="changeGame('twenty')">Las 20 de hoy</button>
+        <button id="irregular-verbs" class="choose-game" @click="changeGame('verbs')">Verbos Irregulares</button>
+        <button id="write-word" class="choose-game" @click="changeGame('write')">Escribe la palabra</button>
     </div>
 
 
     <SpanishGuess v-if="gameType === 'spanish'" />
     <EnglishGuess v-else-if="gameType === 'english'" />
+    <TwentyWords v-else-if="gameType === 'twenty'" />
+    <IrregularVerbs v-else-if="gameType === 'verbs'" />
+    <WriteWord v-else-if="gameType === 'write'" />
 </template>
 
 <style scoped>
@@ -51,7 +60,6 @@ function changeGame(selectedGameType) {
     transform: scale(0.98);
 }
 
-/* Contenedor si los botones están agrupados (opcional, si los envuelves en un div) */
 #game-selection {
     display: flex;
     flex-direction: column;
