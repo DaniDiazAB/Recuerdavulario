@@ -1,38 +1,93 @@
-# recuerdavulario
+# Recueldavulario
 
-This template should help get you started developing with Vue 3 in Vite.
+Recueldavulario es una aplicación web desarrollada con **Vue 3** cuyo objetivo es ayudarte a practicar y memorizar vocabulario, centrándose especialmente en **vocavulario B2, C1 y C2** mediante un sistema de juegos interactivos.
 
-## Recommended IDE Setup
+La base de datos (que más adelante estará disponible para su descarga) no está pensada para personas que quieran empezar con el inglés, ya que apenas hay palabras básicas del inglés y no hay explicación de tiempos verbales, aunque no se descarta que en el futuro se implemente. De todas formas, cualquier persona puede coger este proyecto y usar su propia base de datos.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Recommended Browser Setup
+## 🚀 Características
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+* 🎮 Juego de adivinanza de verbos en inglés
+* 🔄 Comparación de pasado simple y participio
+* 📡 Consumo de datos desde una API centralizada
+* ♻️ Estado compartido entre componentes
+* ⚡ Construido con Vue 3 y Composition API
+* 🧩 Componentes reutilizables y desacoplados
 
-## Customize configuration
+---
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## 🛠️ Tecnologías utilizadas
 
-## Project Setup
+* **Vue 3**
+* **Composition API** (`<script setup>`)
+* **JavaScript (ES6+)**
+* **Vite** (entorno de desarrollo)
+* **API REST** para obtención de verbos
 
-```sh
+---
+
+## 📂 Estructura del proyecto
+
+```
+src/
+├── components/
+│   ├── EnglishGuess.vue
+│   ├── SpanishGuess.vue
+│   └── TitleComponent.vue
+│   └── Demás componentes
+├── App.vue
+└── main.js
+```
+
+* `App.vue`: carga inicial de datos desde la API y distribución del estado.
+* `components/`: componentes del juego y la interfaz.
+
+---
+
+## 📦 Instalación y uso
+
+Clona el repositorio:
+
+```bash
+git clone https://github.com/tu-usuario/recueldavulario.git
+```
+
+Accede al proyecto:
+
+```bash
+cd recueldavulario
+```
+
+Instala las dependencias:
+
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+Inicia el servidor de desarrollo:
 
-```sh
+```bash
 npm run dev
 ```
 
-### Compile and Minify for Production
+---
 
-```sh
-npm run build
-```
+## 📈 Mejoras futuras
+
+* Nuevos juegos (relacionar palabras, "examen"...).
+* Mejoras en el código y CSS.
+* Mejoras varias en los juegos.
+
+---
+
+## 📄 Licencia
+
+Autorizo cualquier modificación y uso de este Software.
+
+---
+
+## ✨ Autor
+
+Desarrollado por Daniel Díaz Honrubia
+
