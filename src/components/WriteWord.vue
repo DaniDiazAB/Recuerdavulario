@@ -1,9 +1,7 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, inject, ref } from 'vue';
 
-const arrayEnglishWords = ref([]);
-const API_URL = 'https://danidiaz.site/recuerdavulario/api/getData.php'
-
+const arrayEnglishWords = inject('arrayWords')
 const englishWord = ref("")
 const spanishWord = ref("")
 const inputClass = ref("guess-word");
@@ -15,9 +13,6 @@ onMounted(() => {
 
 async function loadWords() {
     try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        arrayEnglishWords.value = data;
         setEnglishWordGuess();
     } catch (error) {
         console.error("Error:", error);

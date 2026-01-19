@@ -8,8 +8,6 @@
 
 <style scoped>
 
-
-
 h1 {
     font-size: 38px; 
     color: var(--primary-color); 

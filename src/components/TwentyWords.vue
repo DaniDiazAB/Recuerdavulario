@@ -1,27 +1,13 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, inject, ref } from 'vue';
 
-const arrayWords = ref([])
-const API_URL = 'https://danidiaz.site/recuerdavulario/api/getData.php'
+const arrayWords = inject('arrayWords')
 const randomIndexList = ref([]);
 const showTranslation = ref(true); 
 
 onMounted(async () => {
-    await setWords();
     randomIndexList.value = setRandomNumbers(arrayWords.value.length);
 });
-
-// conseguir el tamaño del array
-async function setWords() {
-    try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        arrayWords.value = data;
-        return arrayWords.value;
-    } catch (error) {
-        console.error("Error:", error);
-    }
-}
 
 // mediante el tamaño del array, se consiguen 20 posiciones aleatorias
 function setRandomNumbers(arraySize){
@@ -38,15 +24,7 @@ function setRandomNumbers(arraySize){
     }
 
     const indexes = Array.from({ length: arraySize }, (_, i) => i);
-
     const shuffled = indexes.slice().sort(() => seededRandom() - 0.5);
-
-    return shuffled.slice(0, 20);
-}
-
-
-function getRandomPosition(arr) {
-    const shuffled = arr.slice().sort(() => Math.random() - 0.5);
     return shuffled.slice(0, 20);
 }
 

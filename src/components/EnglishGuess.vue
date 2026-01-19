@@ -1,18 +1,32 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { watch, ref, inject } from 'vue';
 
 const englishRandomWord = ref("");
 const spanishRandomWord = ref("");
 const arrayWordsWrong = ref([])
 const random = ref();
-const arrayWords = ref([])
-const API_URL = 'https://danidiaz.site/recuerdavulario/api/getData.php'
+const arrayWords = inject('arrayWords')
 
-onMounted(() => {
-    setWords();
-})
+watch(
+    arrayWords,
+    (newValue) => {
+        if (newValue.length > 0) {
+            setNewTry()
+        }
+    },
+    { immediate: true }
+)
+
+function checkWord(word) {
+    if (word === spanishRandomWord.value) {
+        setNewTry()
+    } else {
+        alert("Fallo");
+    }
+}
 
 function setNewTry() {
+    arrayWordsWrong.value.length = 0;
     getRandom();
 
     englishRandomWord.value = arrayWords.value[random.value].ingles_palabra
@@ -26,17 +40,6 @@ function setNewTry() {
     shuffle(arrayWordsWrong.value)
 }
 
-async function setWords() {
-    try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        arrayWords.value = data;
-        arrayWordsWrong.value.length = 0;
-        setNewTry(); 
-    } catch (error) {
-        console.error("Error:", error);
-    }
-}
 
 function shuffle(wordsArray) {
     return wordsArray.sort(() => Math.random() - 0.5);
@@ -44,14 +47,6 @@ function shuffle(wordsArray) {
 
 function getRandom() {
     random.value = Math.floor(Math.random() * arrayWords.value.length);
-}
-
-function checkWord(word) {
-    if (word === spanishRandomWord.value) {
-        setWords()
-    } else {
-        alert("Fallo");
-    }
 }
 
 </script>

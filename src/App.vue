@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, provide, ref } from 'vue';
 
 import EnglishGuess from './components/EnglishGuess.vue';
 import SpanishGuess from './components/SpanishGuess.vue';
@@ -9,7 +9,27 @@ import IrregularVerbs from './components/IrregularVerbs.vue';
 import WriteWord from './components/WriteWord.vue';
 import FIllIrregularVerb from './components/FIllIrregularVerb.vue';
 
-const gameType = ref("fill")
+const API_URL = 'https://danidiaz.site/recuerdavulario/api/getData.php'
+const arrayWords = ref([])
+
+provide('arrayWords', arrayWords)
+
+
+onMounted(() => {
+    setWords();
+})
+
+async function setWords() {
+    try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        arrayWords.value = data;
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+const gameType = ref("english")
 
 function changeGame(selectedGameType) {
     gameType.value = selectedGameType
