@@ -12,6 +12,8 @@ watch(
     (newValue) => {
         if (newValue.length > 0) {
             setNewTry()
+            console.log(arrayWords);
+            
         }
     },
     { immediate: true }

@@ -8,12 +8,12 @@ import TwentyWords from './components/TwentyWords.vue';
 import IrregularVerbs from './components/IrregularVerbs.vue';
 import WriteWord from './components/WriteWord.vue';
 import FIllIrregularVerb from './components/FIllIrregularVerb.vue';
+import LinkWords from './components/LinkWords.vue';
 
 const API_URL = 'https://danidiaz.site/recuerdavulario/api/getData.php'
 const arrayWords = ref([])
 
 provide('arrayWords', arrayWords)
-
 
 onMounted(() => {
     setWords();
@@ -29,7 +29,7 @@ async function setWords() {
     }
 }
 
-const gameType = ref("english")
+const gameType = ref("link")
 
 function changeGame(selectedGameType) {
     gameType.value = selectedGameType
@@ -46,6 +46,7 @@ function changeGame(selectedGameType) {
         <button id="write-word" class="choose-game" @click="changeGame('write')">Escribe la palabra</button>
         <button id="irregular-verbs" class="choose-game" @click="changeGame('verbs')">Verbos Irregulares</button>
         <button id="write-word" class="choose-game" @click="changeGame('fill')">Rellenar el verbo</button>
+        <button id="link-words" class="choose-game" @click="changeGame('link')">Enlazar verbos</button>
     </div>
 
 
@@ -55,6 +56,7 @@ function changeGame(selectedGameType) {
     <IrregularVerbs v-else-if="gameType === 'verbs'" />
     <WriteWord v-else-if="gameType === 'write'" />
     <FIllIrregularVerb v-else-if="gameType === 'fill'" />
+    <LinkWords v-else-if="gameType === 'link'" />
 </template>
 
 <style scoped>
