@@ -5,7 +5,7 @@
 
 <template>
 
-<h1>Top 100 Verbos Irregulares</h1>
+<h3>Top 100 Verbos Irregulares</h3>
     
     <div class="container">
         <table>
@@ -126,99 +126,131 @@
 </template>
 
 <style scoped>
-:root {
-  --bg-color: #f4f4f9; 
-  --card-bg: #ffffff;  
-  --text-color: #1e1e1e; 
-  --primary-color: #4a90e2; 
-  --secondary-bg: #e0e0e0; 
-  --shadow-color: rgba(0, 0, 0, 0.1);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-color: #121212; 
-    --card-bg: #1e1e1e;  
-    --text-color: #e0e0e0; 
-    --primary-color: #8ab4f8; 
-    --secondary-bg: #282828; 
-    --shadow-color: rgba(0, 0, 0, 0.4);
-  }
-}
-
-.container {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-family: Arial, sans-serif;
-    padding: 20px 0;
-    min-height: 100vh;
-}
 
 h1 {
-    font-size: 30px;
-    color: var(--primary-color);
     text-align: center;
-    margin: 20px auto 30px auto;
-    text-shadow: 0 0 5px var(--shadow-color);
-    padding: 0 15px;
+    font-size: 36px;
+    color: var(--accent);
+    margin: 30px 0 40px;
+    font-weight: 600;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border);
+}
+
+h3 {
+    text-align: center;
+    font-size: 28px;
+    color: var(--accent);
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border);
 }
 
 .container {
-    overflow-x: auto; 
-    padding: 20px 10px;
+    overflow-x: auto;
     margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 20px;
 }
 
 table {
     width: 100%;
-    max-width: 1000px; 
-    margin: 0 auto;
-    border-collapse: collapse; 
-    box-shadow: 0 5px 15px var(--shadow-color);
-    border-radius: 10px; 
+    border-collapse: collapse;
+    background-color: var(--surface);
+    border-radius: 10px;
     overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
 }
 
-thead th {
-    background-color: var(--primary-color);
-    color: white; 
-    padding: 15px 10px;
-    text-align: left;
-    font-size: 16px;
-    font-weight: bold;
-    letter-spacing: 0.5px;
-}
-
-tbody td {
-    padding: 12px 10px;
-    font-size: 15px;
-    border-bottom: 1px solid var(--secondary-bg); 
-    color: var(--text-color);
+thead {
     background-color: var(--card-bg);
 }
 
-tbody tr:nth-child(even) {
-    background-color: var(--secondary-bg);
+th {
+    padding: 22px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--accent);
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
 }
 
-tbody tr:hover {
-    background-color: var(--primary-color);
+td {
+    padding: 20px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-primary);
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+}
+
+tbody tr:hover td {
+    background-color: rgba(79, 195, 247, 0.05);
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+th:nth-child(1), td:nth-child(1) {
+    font-weight: 500;
     color: white;
-    cursor: default;
-    transition: background-color 0.2s, color 0.2s;
 }
 
-@media (min-width: 600px) {
+td:nth-child(4) {
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
     h1 {
-        font-size: 40px;
-        margin-top: 40px;
-        margin-bottom: 40px;
+        font-size: 30px;
+        margin: 25px 0 30px;
     }
-    thead th {
-        font-size: 18px;
+    
+    .container {
+        padding: 0 15px;
     }
-    tbody td {
+    
+    th {
+        padding: 18px 12px;
         font-size: 16px;
     }
+    
+    td {
+        padding: 16px 12px;
+        font-size: 15px;
+    }
 }
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 26px;
+        margin: 20px 0 25px;
+        padding-bottom: 12px;
+    }
+    
+    .container {
+        padding: 0 10px;
+    }
+    
+    th {
+        padding: 14px 8px;
+        font-size: 14px;
+    }
+    
+    td {
+        padding: 12px 8px;
+        font-size: 14px;
+    }
+    
+    table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+
 </style>

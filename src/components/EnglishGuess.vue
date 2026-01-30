@@ -6,6 +6,8 @@ const spanishRandomWord = ref("");
 const arrayWordsWrong = ref([])
 const random = ref();
 const arrayWords = inject('arrayWords')
+const wrongIndexes = ref([]);
+
 
 watch(
     arrayWords,
@@ -13,17 +15,20 @@ watch(
         if (newValue.length > 0) {
             setNewTry()
             console.log(arrayWords);
-            
+
         }
     },
     { immediate: true }
 )
 
-function checkWord(word) {
+function checkWord(word, index) {
     if (word === spanishRandomWord.value) {
-        setNewTry()
+        wrongIndexes.value = [];   // reset al acertar
+        setNewTry();
     } else {
-        alert("Fallo");
+        if (!wrongIndexes.value.includes(index)) {
+            wrongIndexes.value.push(index);
+        }
     }
 }
 
@@ -53,7 +58,9 @@ function getRandom() {
 
 </script>
 
+
 <template>
+    <h3>Selecciona la traducción</h3>
     <div id="words">
         <div id="english-word">
             <button>
@@ -62,22 +69,10 @@ function getRandom() {
         </div>
 
         <div id="spanish-words">
-            <button @click="checkWord(arrayWordsWrong[0])">
-                {{ arrayWordsWrong[0] }}
-            </button>
 
-            <button @click="checkWord(arrayWordsWrong[1])">
-                {{ arrayWordsWrong[1] }}
-
-            </button>
-
-            <button @click="checkWord(arrayWordsWrong[2])">
-                {{ arrayWordsWrong[2] }}
-
-            </button>
-
-            <button @click="checkWord(arrayWordsWrong[3])">
-                {{ arrayWordsWrong[3] }}
+            <button v-for="(word, index) in arrayWordsWrong" :key="index" @click="checkWord(word, index)"
+                :class="{ wrong: wrongIndexes.includes(index) }">
+                {{ word }}
             </button>
 
         </div>
@@ -86,141 +81,177 @@ function getRandom() {
 </template>
 
 <style>
-/* * 1. Definición de Variables CSS para Dark Mode 
- * Usamos @media (prefers-color-scheme: dark) para cambiar los colores.
- */
-
-:root {
-  /* Modo Claro (Default) */
-  --bg-color: #f4f4f9; /* Fondo muy claro */
-  --card-bg: #ffffff;  /* Fondo de las tarjetas/botones */
-  --text-color: #1e1e1e; /* Color del texto principal */
-  --primary-color: #4a90e2; /* Azul principal */
-  --hover-color: #357bd9;  /* Azul oscuro para hover */
-  --shadow-color: rgba(0, 0, 0, 0.1);
-}
-
-@media (prefers-color-scheme: dark) {
-  /* Modo Oscuro */
-  :root {
-    --bg-color: #121212; /* Fondo muy oscuro */
-    --card-bg: #1e1e1e;  /* Fondo de las tarjetas/botones en oscuro */
-    --text-color: #e0e0e0; /* Color del texto claro */
-    --primary-color: #8ab4f8; /* Azul más claro para contraste */
-    --hover-color: #6a95e0;  /* Azul oscuro para hover */
-    --shadow-color: rgba(0, 0, 0, 0.4);
-  }
-}
-
-/* * 2. Estilos Generales y Contenedor Principal
- */
-
-body {
-    background-color: var(--bg-color); /* Aplica el fondo del modo oscuro/claro */
-    transition: background-color 0.3s; /* Transición suave para el modo oscuro/claro */
-    color: var(--text-color);
-    font-family: 'Avenir', 'Helvetica', Arial, sans-serif;
-    margin: 0;
+h3 {
+    text-align: center;
+    font-size: 28px;
+    color: var(--accent);
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border);
 }
 
 #words {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px; /* Aumentado ligeramente para mejor espaciado */
-    padding: 20px;
-    min-height: 100vh; /* Ocupa al menos toda la altura de la vista */
-    box-sizing: border-box;
+    gap: 40px;
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto;
 }
-
-/* * 3. Estilo de la Palabra en Inglés (English Word)
- */
 
 #english-word {
     width: 100%;
-    max-width: 400px; /* Limita el ancho en pantallas grandes */
-    text-align: center;
 }
 
 #english-word button {
-    background: var(--primary-color);
-    color: var(--text-color); /* Usa el color de texto del modo */
-    border: none;
     width: 100%;
-    padding: 20px 25px;
-    font-size: 24px;
-    font-weight: bold;
+    padding: 40px 20px;
+    font-size: 42px;
+    font-weight: 600;
+    background-color: var(--surface);
+    color: white;
+    border: 2px solid var(--border);
     border-radius: 12px;
     cursor: default;
-    box-shadow: 0 4px 15px var(--shadow-color);
-    transition: all 0.3s ease;
-    /* Asegura que el color del texto sea visible en el primary-color */
-    color: white; 
+    transition: all 0.2s ease;
 }
 
-/* * 4. Estilos de las Opciones en Español (Spanish Words)
- */
+#english-word button:hover {
+    border-color: var(--accent);
+    background-color: var(--surface);
+    transform: none;
+}
+
+/* ===========================
+   BOTONES ESPAÑOL
+   =========================== */
 
 #spanish-words {
     display: grid;
-    /* Por defecto, en móvil, usamos 1 columna */
-    grid-template-columns: 1fr; 
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
     width: 100%;
-    max-width: 400px;
-    gap: 15px;
 }
 
 #spanish-words button {
-    background: var(--card-bg);
-    border: 2px solid var(--primary-color);
-    color: var(--text-color);
-    padding: 15px 25px;
-    width: 100%;
-    border-radius: 10px;
-    font-size: 18px;
+    padding: 30px 20px;
+    font-size: 26px;
+    background-color: var(--surface);
+    color: var(--text-primary);
+    border: 2px solid var(--border);
+    border-radius: 12px;
     cursor: pointer;
-    transition: background-color 0.2s, color 0.2s, transform 0.1s;
-    box-shadow: 0 2px 8px var(--shadow-color);
-    font-weight: 500;
+    transition: all 0.2s ease;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
-/* Efectos de Interacción */
+/* Hover normal */
 #spanish-words button:hover {
-    background: var(--hover-color);
-    color: white;
-    border-color: var(--hover-color);
+    border-color: var(--accent);
+    background-color: var(--border);
+    transform: translateY(-3px);
 }
 
 #spanish-words button:active {
-    transform: scale(0.98);
-    box-shadow: 0 1px 5px var(--shadow-color);
+    transform: translateY(0);
 }
 
+/* ===========================
+   ❌ ESTADO ERROR
+   =========================== */
 
-/* * 5. Adaptación a Escritorio (Desktop/Tablet) 
- * Usamos Media Query para cambiar a 2 columnas cuando hay más espacio.
- */
+#spanish-words button.wrong {
+    background-color: #3a0f0f;
+    border-color: #ff4d4d;
+    color: #ffb3b3;
+    transform: none;
+    animation: shake 0.35s;
+}
 
-@media (min-width: 600px) {
+/* Anula hover cuando está mal */
+#spanish-words button.wrong:hover {
+    background-color: #3a0f0f;
+    border-color: #ff4d4d;
+    transform: none;
+}
+
+/* ===========================
+   ANIMACIÓN
+   =========================== */
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-4px);
+    }
+
+    40% {
+        transform: translateX(4px);
+    }
+
+    60% {
+        transform: translateX(-4px);
+    }
+
+    80% {
+        transform: translateX(4px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+
+@media (max-width: 768px) {
     #words {
-        padding: 60px;
-        gap: 50px;
+        padding: 20px;
+        gap: 30px;
     }
 
     #english-word button {
-        font-size: 28px;
-        padding: 25px 50px;
+        padding: 30px 15px;
+        font-size: 34px;
     }
 
     #spanish-words {
-        /* En pantallas más grandes, usamos 2 columnas */
-        grid-template-columns: repeat(2, 1fr);
-        max-width: 600px;
-        gap: 20px;
+        grid-template-columns: 1fr;
+        gap: 15px;
     }
 
     #spanish-words button {
+        padding: 24px 15px;
+        font-size: 22px;
+        min-height: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    #words {
+        padding: 15px;
+        gap: 25px;
+    }
+
+    #english-word button {
+        padding: 25px 12px;
+        font-size: 28px;
+    }
+
+    #spanish-words button {
+        padding: 20px 12px;
         font-size: 20px;
+        min-height: 90px;
     }
 }
 </style>

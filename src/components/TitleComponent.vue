@@ -2,8 +2,11 @@
 </script>
 
 <template>
-  <h1>Recuerdavulario</h1>
-  <h2>By Daniel Díaz</h2>
+    <div>  
+        <h1>Recuerdavulario</h1>
+        <h2>By Daniel Díaz</h2>
+    </div>
+
 </template>
 
 <style scoped>

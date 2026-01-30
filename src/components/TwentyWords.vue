@@ -56,70 +56,125 @@ function hideTrad(){
 </template>
 
 <style scoped>
-
-
-.word-box:hover {
-  transform: scale(1.03);
-  box-shadow: 0 4px 15px var(--shadow-color, rgba(0, 0, 0, 0.6));
-}
-
 h3 {
-  color: var(--primary-color, #8ab4f8);
-  text-align: center;
-  margin-bottom: 20px;
-  text-shadow: 0 0 5px var(--shadow-color, rgba(0, 0, 0, 0.4));
-}
-
-div[v-if] {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.words-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-
-.word-box {
-  background: var(--card-bg, #1e1e1e); 
-  color: var(--text-color, #e0e0e0); 
-  padding: 12px;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0 2px 6px var(--shadow-color, rgba(0, 0, 0, 0.4));
-  border-left: 4px solid var(--primary-color, #8ab4f8);
-}
-
-.translation.hidden {
-  color: transparent !important; 
-  text-shadow: 0 0 8px var(--text-color, #e0e0e0); 
-  background-color: transparent !important;
+    text-align: center;
+    font-size: 28px;
+    color: var(--accent);
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border);
 }
 
 button {
-    background-color: var(--card-bg, #1e1e1e); 
-    color: var(--primary-color, #8ab4f8);
-    border: 2px solid var(--primary-color, #8ab4f8);
-    padding: 10px 20px;
+    display: block;
+    margin: 0 auto 30px;
+    padding: 14px 28px;
+    background-color: var(--surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
     border-radius: 8px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.2s, color 0.2s, transform 0.1s, box-shadow 0.2s;
-    margin: 10px auto 30px auto; 
-    display: block;
-    max-width: 300px;
+    transition: all 0.2s ease;
 }
 
 button:hover {
-    background-color: var(--primary-color, #8ab4f8);
-    color: white;
+    background-color: var(--border);
+    border-color: var(--accent);
+    transform: translateY(-2px);
 }
 
-button:active {
-    transform: scale(0.98);
+.words-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
 }
+
+.word-box {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 25px;
+    transition: all 0.2s ease;
+}
+
+.word-box:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.word-box p {
+    font-size: 20px;
+    color: var(--text-primary);
+    margin: 0;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.translation {
+    color: var(--accent);
+    transition: color 0.2s ease;
+}
+
+.translation.hidden {
+    color: transparent;
+    text-shadow: 0 0 8px rgba(79, 195, 247, 0.3);
+    user-select: none;
+}
+
+@media (max-width: 768px) {
+    h3 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+    }
+    
+    button {
+        margin-bottom: 25px;
+        padding: 12px 24px;
+        font-size: 15px;
+    }
+    
+    .words-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 15px;
+    }
+    
+    .word-box {
+        padding: 20px;
+    }
+    
+    .word-box p {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    h3 {
+        font-size: 22px;
+    }
+    
+    button {
+        width: 100%;
+        max-width: 300px;
+        padding: 12px 20px;
+    }
+    
+    .words-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .word-box {
+        padding: 18px;
+    }
+    
+    .word-box p {
+        font-size: 17px;
+    }
+}
+
 
 </style>

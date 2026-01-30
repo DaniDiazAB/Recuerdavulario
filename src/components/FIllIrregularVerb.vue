@@ -655,6 +655,7 @@ function giveSolution() {
 </script>
 
 <template>
+    <h3>Escribe el pasado y el participio del verbo</h3>
     <div>
         <p class="irregular-verb">{{ randomVerb.infinitive }}</p>
         <input type="text" v-model="guessPastVerb" placeholder="Pasado" :class="{
@@ -674,134 +675,152 @@ function giveSolution() {
 </template>
 
 <style scoped>
-/* * 1. Configuración del Contenedor Principal
- * Mantenemos el diseño compacto y centrado (max-width: 320px)
- */
+
+h3 {
+    text-align: center;
+    font-size: 28px;
+    color: var(--accent);
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border);
+}
+
 div {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    max-width: 320px;
-    margin: 30px auto;
-    gap: 15px; /* Espacio vertical entre elementos */
+    gap: 25px;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
 }
 
-/* * 2. Tipografía de los Verbos
- */
-
-/* Verbo Infinitivo (Principal) */
-p.irregular-verb:first-of-type {
+.irregular-verb {
     font-size: 36px;
-    font-weight: bold;
-    color: var(--primary-color, #8ab4f8);
-    margin: 0;
-    text-shadow: 0 0 5px var(--shadow-color, rgba(0, 0, 0, 0.4));
-    text-transform: lowercase;
-}
-
-/* Traducción al Español (Secundario) */
-p.irregular-verb:nth-of-type(2) {
-    font-size: 20px;
-    color: var(--text-color, #e0e0e0);
-    margin: 5px 0 15px 0;
-    font-style: italic;
-    opacity: 0.9;
-}
-
-/* * 3. Estilos de los Inputs de Texto (Past & Participle)
- */
-input[type="text"] {
-    background-color: var(--card-bg, #1e1e1e);
-    color: var(--text-color, #e0e0e0);
-    border: 2px solid var(--primary-color, #8ab4f8);
-    width: 100%;
-    padding: 12px 15px;
-    border-radius: 10px;
-    font-size: 18px;
+    font-weight: 600;
+    color: white;
     text-align: center;
-    box-shadow: 0 2px 8px var(--shadow-color, rgba(0, 0, 0, 0.4));
+    margin: 0;
+}
+
+.irregular-verb:nth-child(4) {
+    color: var(--text-secondary);
+    font-size: 28px;
+    margin-top: 10px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 20px;
+    font-size: 20px;
+    background-color: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    text-align: center;
     transition: all 0.2s ease;
-    box-sizing: border-box;
-    outline: none;
 }
 
 input[type="text"]:focus {
-    box-shadow: 0 0 0 3px rgba(138, 180, 248, 0.5);
+    border-color: var(--accent);
+    outline: none;
 }
 
-/* ✅ Estado CORRECTO (Verde) */
 input[type="text"].correct {
-    border-color: #2ecc71 !important;
-    color: #2ecc71 !important;
-    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.3) !important;
+    border-color: var(--success);
+    background-color: rgba(102, 187, 106, 0.1);
 }
 
-/* ❌ Estado INCORRECTO (Rojo + Animación) */
 input[type="text"].wrong {
-    border-color: #e74c3c !important;
-    color: #e74c3c !important;
-    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.3) !important;
-    animation: shake 0.4s ease-in-out;
+    border-color: var(--error);
+    background-color: rgba(244, 67, 54, 0.1);
 }
 
-/* * 4. Estilos de los Botones (input type="button")
- */
 input[type="button"] {
     width: 100%;
-    padding: 12px;
-    border-radius: 10px;
+    padding: 18px;
     font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.1s, background-color 0.2s;
+    font-weight: 600;
     border: none;
-    -webkit-appearance: none; /* Reset para móviles iOS */
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-/* Botón "Comprobar" (Primary) */
-input[value="Comprobar"] {
-    background-color: var(--primary-color, #8ab4f8);
-    color: white;
-    box-shadow: 0 4px 10px var(--shadow-color, rgba(0, 0, 0, 0.4));
-    margin-top: 10px; /* Separación extra antes de los botones */
+input[type="button"]:first-of-type {
+    background-color: var(--accent);
+    color: var(--primary-bg);
+    margin-top: 10px;
 }
 
-input[value="Comprobar"]:hover {
-    background-color: var(--hover-color, #6a95e0);
+input[type="button"]:first-of-type:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
 }
 
-/* Botón "Solución" (Secondary) */
-input[value="Solución"] {
-    background-color: transparent;
-    color: var(--text-color, #e0e0e0);
-    border: 2px solid var(--text-color, #e0e0e0);
-    font-size: 16px;
-    padding: 10px;
+input[type="button"]:last-of-type {
+    background-color: var(--surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
 }
 
-input[value="Solución"]:hover {
-    background-color: var(--secondary-bg, #282828);
-    color: var(--primary-color, #8ab4f8);
-    border-color: var(--primary-color, #8ab4f8);
+input[type="button"]:last-of-type:hover {
+    background-color: var(--border);
+    border-color: var(--accent);
+    transform: translateY(-2px);
 }
 
-input[type="button"]:active {
-    transform: scale(0.96);
+@media (max-width: 768px) {
+    div {
+        padding: 30px 20px;
+        gap: 20px;
+    }
+    
+    .irregular-verb {
+        font-size: 32px;
+    }
+    
+    .irregular-verb:nth-child(4) {
+        font-size: 24px;
+    }
+    
+    input[type="text"] {
+        padding: 18px;
+        font-size: 18px;
+    }
+    
+    input[type="button"] {
+        padding: 16px;
+        font-size: 17px;
+    }
 }
 
-/* * 5. Animación de Error
- */
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
+@media (max-width: 480px) {
+    div {
+        padding: 25px 15px;
+        gap: 18px;
+    }
+    
+    .irregular-verb {
+        font-size: 28px;
+    }
+    
+    .irregular-verb:nth-child(4) {
+        font-size: 22px;
+    }
+    
+    input[type="text"] {
+        padding: 16px;
+        font-size: 17px;
+    }
+    
+    input[type="button"] {
+        padding: 15px;
+        font-size: 16px;
+    }
 }
 
-/* * 6. Ajustes Desktop
- */
-@media (min-width: 600px) {
-    div { max-width: 400px; }
-    p.irregular-verb:first-of-type { font-size: 42px; }
-}
 </style>

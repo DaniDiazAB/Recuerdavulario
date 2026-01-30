@@ -72,6 +72,7 @@ const resetSelection = () => {
 </script>
 
 <template>
+    <h3>Enlaza las palabras</h3>
     <div class="game-board">
         <div class="column">
             <h3 class="title">Español</h3>
@@ -110,160 +111,141 @@ const resetSelection = () => {
 </template>
 
 <style>
-/* =====================================================
- * 1. Variables CSS (heredadas del diseño general)
- * ===================================================== */
 
-:root {
-  --bg-color: #f4f4f9;
-  --card-bg: #ffffff;
-  --text-color: #1e1e1e;
-  --primary-color: #4a90e2;
-  --hover-color: #357bd9;
-  --success-color: #4caf50;
-  --error-color: #e74c3c;
-  --shadow-color: rgba(0, 0, 0, 0.1);
+h3 {
+    text-align: center;
+    font-size: 28px;
+    color: var(--accent);
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border);
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-color: #121212;
-    --card-bg: #1e1e1e;
-    --text-color: #e0e0e0;
-    --primary-color: #8ab4f8;
-    --hover-color: #6a95e0;
-    --success-color: #66bb6a;
-    --error-color: #ef5350;
-    --shadow-color: rgba(0, 0, 0, 0.4);
-  }
-}
-
-/* =====================================================
- * 2. Contenedor principal del juego
- * ===================================================== */
 
 .game-board {
-  display: flex;
-  gap: 30px;
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px;
-  box-sizing: border-box;
+    display: flex;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+    align-items: flex-start;
 }
-
-/* En móvil, columnas una debajo de la otra */
-@media (max-width: 599px) {
-  .game-board {
-    flex-direction: column;
-  }
-}
-
-/* =====================================================
- * 3. Columnas (Español / Inglés)
- * ===================================================== */
 
 .column {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .title {
-  text-align: center;
-  font-size: 22px;
-  font-weight: bold;
-  color: var(--text-color);
-  margin-bottom: 10px;
+    text-align: center;
+    font-size: 24px;
+    color: var(--accent);
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
-/* =====================================================
- * 4. Tarjetas (palabras)
- * ===================================================== */
 
 .card {
-  background: var(--card-bg);
-  border: 2px solid var(--primary-color);
-  border-radius: 12px;
-  padding: 15px 20px;
-  font-size: 18px;
-  text-align: center;
-  cursor: pointer;
-  user-select: none;
-  box-shadow: 0 2px 8px var(--shadow-color);
-  transition: 
-    background-color 0.2s ease,
-    color 0.2s ease,
-    transform 0.1s ease,
-    box-shadow 0.2s ease;
+    padding: 25px 20px;
+    background-color: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
-/* Hover */
 .card:hover {
-  background: var(--hover-color);
-  color: white;
-  border-color: var(--hover-color);
+    border-color: var(--accent);
+    transform: translateY(-3px);
 }
 
-/* Click */
-.card:active {
-  transform: scale(0.97);
-  box-shadow: 0 1px 5px var(--shadow-color);
-}
-
-/* =====================================================
- * 5. Estados del juego
- * ===================================================== */
-
-/* Seleccionada */
 .card.is-selected {
-  background: var(--primary-color);
-  color: white;
-  border-color: var(--primary-color);
+    border-color: var(--accent);
+    background-color: rgba(79, 195, 247, 0.1);
+    color: var(--accent);
+    font-weight: 600;
 }
 
-/* Correcta (emparejada) */
 .card.is-matched {
-  background: var(--success-color);
-  border-color: var(--success-color);
-  color: white;
-  cursor: default;
-  opacity: 0.9;
+    border-color: var(--success);
+    background-color: rgba(102, 187, 106, 0.1);
+    color: var(--success);
+    cursor: default;
+    transform: none;
 }
 
-/* Error (selección incorrecta) */
+.card.is-matched:hover {
+    border-color: var(--success);
+    transform: none;
+}
+
 .card.is-error {
-  background: var(--error-color);
-  border-color: var(--error-color);
-  color: white;
-  animation: shake 0.3s;
+    border-color: var(--error);
+    background-color: rgba(244, 67, 54, 0.1);
+    color: var(--error);
+    animation: shake 0.3s ease;
 }
-
-/* =====================================================
- * 6. Animación de error
- * ===================================================== */
 
 @keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  50% { transform: translateX(4px); }
-  75% { transform: translateX(-4px); }
-  100% { transform: translateX(0); }
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
 }
 
-/* =====================================================
- * 7. Ajustes en pantallas grandes
- * ===================================================== */
-
-@media (min-width: 600px) {
-  .title {
-    font-size: 24px;
-  }
-
-  .card {
-    font-size: 20px;
-    padding: 18px 25px;
-  }
+@media (max-width: 768px) {
+    .game-board {
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px;
+    }
+    
+    .column {
+        width: 100%;
+    }
+    
+    .title {
+        font-size: 22px;
+        height: 45px;
+    }
+    
+    .card {
+        padding: 20px 15px;
+        font-size: 18px;
+        min-height: 80px;
+    }
 }
+
+@media (max-width: 480px) {
+    .game-board {
+        padding: 15px;
+        gap: 25px;
+    }
+    
+    .title {
+        font-size: 20px;
+        height: 40px;
+    }
+    
+    .card {
+        padding: 18px 12px;
+        font-size: 17px;
+        min-height: 75px;
+    }
+}
+
 </style>
