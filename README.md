@@ -70,7 +70,7 @@ Inicia el servidor de desarrollo:
 ```bash
 npm run dev
 ```
-
+IMPORTANTE: En este repositorio está el archivo public/api/getData.php cuidado, en caso de que quieras usar el proyecto como propio por seguridad se recomienda que las credenciales de acceso a la Base de Datos no estén en este archivo.
 ---
 
 ## 📈 Mejoras futuras
