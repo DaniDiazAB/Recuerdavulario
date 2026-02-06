@@ -1,5 +1,5 @@
 <script setup>
-import { watch, ref, inject } from 'vue';
+import { watch, ref, inject, computed } from 'vue';
 
 const arrayWords = inject('arrayWords');
 
@@ -7,7 +7,18 @@ const leftColumn = ref([]);
 const rightColumn = ref([]); 
 const selectedLeft = ref(null);
 const selectedRight = ref(null);
-const solvedIds = ref([]);   
+const solvedIds = ref([]); 
+
+const isGameFinished = computed(() => {
+    return leftColumn.value.length > 0 && solvedIds.value.length === leftColumn.value.length;
+});
+
+const restartGame = () => {
+    resetSelection();
+    solvedIds.value = [];
+    const data = arrayWords.value || arrayWords; 
+    startGame(data);
+};
 
 const shuffle = (array) => {
     return array.sort(() => Math.random() - 0.5);
@@ -17,7 +28,6 @@ const startGame = (rawData) => {
     if (!rawData || rawData.length === 0) return;
 
     const shuffledAll = shuffle([...rawData]);
-
     const selected10 = shuffledAll.slice(0, 10);
 
     const gameData = selected10.map((item, index) => {
@@ -73,7 +83,7 @@ const resetSelection = () => {
 
 <template>
     <h3>Enlaza las palabras</h3>
-    <div class="game-board">
+    <div v-if="!isGameFinished" class="game-board">
         <div class="column">
             <h3 class="title">Español</h3>
             <div 
@@ -107,6 +117,12 @@ const resetSelection = () => {
                 {{ word.en }}
             </div>
         </div>
+    </div>
+
+    <div v-if="isGameFinished" class="game-over">
+        <button @click="restartGame" class="btn-restart">
+            Jugar de nuevo
+        </button>
     </div>
 </template>
 
@@ -247,5 +263,26 @@ h3 {
         min-height: 75px;
     }
 }
+
+.btn-restart {
+    display: block;
+    margin: 40px auto 0;
+    background-color: var(--accent);
+    color: var(--primary-bg);
+    padding: 18px 36px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 180px;
+}
+
+.btn-restart:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+}
+
 
 </style>
