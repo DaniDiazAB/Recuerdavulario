@@ -5,6 +5,11 @@ const arrayWords = inject('arrayWords')
 const randomIndexList = ref([]);
 const showTranslation = ref(true); 
 
+const buttonTexto = ref("Ver la traducción")
+const isHidden = ref(true)
+showTranslation.value = false;
+
+
 onMounted(async () => {
     randomIndexList.value = setRandomNumbers(arrayWords.value.length);
 });
@@ -29,6 +34,13 @@ function setRandomNumbers(arraySize){
 }
 
 function hideTrad(){
+    if(isHidden.value){
+        buttonTexto.value = "Ocultar la traducción"
+        isHidden.value = false
+    }else{
+        buttonTexto.value = "Ver la traducción"
+        isHidden.value = true
+    }
     showTranslation.value = !showTranslation.value;
 }
 
@@ -36,7 +48,7 @@ function hideTrad(){
 
 <template>
   <h3>Las 20 palabras del día </h3>
-  <button @click="hideTrad">Esconder la traducción</button>
+  <button @click="hideTrad">{{buttonTexto }}</button>
   <div v-if="arrayWords.length && randomIndexList.length" class="words-container">
     <div 
       v-for="(index, i) in randomIndexList" 

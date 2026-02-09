@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted, provide, ref } from 'vue';
-
 import EnglishGuess from './components/EnglishGuess.vue';
 import SpanishGuess from './components/SpanishGuess.vue';
 import TitleComponent from './components/TitleComponent.vue';
@@ -9,9 +8,12 @@ import IrregularVerbs from './components/IrregularVerbs.vue';
 import WriteWord from './components/WriteWord.vue';
 import FIllIrregularVerb from './components/FIllIrregularVerb.vue';
 import LinkWords from './components/LinkWords.vue';
+import Diccionary from './components/Diccionary.vue';
 
 const API_URL = 'https://danidiaz.site/recuerdavulario/api/getData.php'
 const arrayWords = ref([])
+const gameType = ref("words")
+
 
 provide('arrayWords', arrayWords)
 
@@ -29,7 +31,6 @@ async function setWords() {
     }
 }
 
-const gameType = ref("english")
 
 function changeGame(selectedGameType) {
     gameType.value = selectedGameType
@@ -47,6 +48,7 @@ function changeGame(selectedGameType) {
         <button id="irregular-verbs" class="choose-game" @click="changeGame('verbs')">Verbos Irregulares</button>
         <button id="write-word" class="choose-game" @click="changeGame('fill')">Rellenar el verbo</button>
         <button id="link-words" class="choose-game" @click="changeGame('link')">Enlazar palabras</button>
+        <button id="link-words" class="choose-game" @click="changeGame('words')">Ver diccionario</button>
     </div>
 
 
@@ -57,6 +59,7 @@ function changeGame(selectedGameType) {
     <WriteWord v-else-if="gameType === 'write'" />
     <FIllIrregularVerb v-else-if="gameType === 'fill'" />
     <LinkWords v-else-if="gameType === 'link'" />
+    <Diccionary v-else-if="gameType === 'words'" />
 </template>
 
 <style>
@@ -101,7 +104,6 @@ body {
     display: flex;
     gap: 12px;
     padding: 16px;
-    max-width: 1400px;
     margin: 0 auto;
     width: 100%;
     background-color: var(--secondary-bg);
