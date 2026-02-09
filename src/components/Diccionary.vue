@@ -100,35 +100,28 @@ function normalize(text = '') {
 </template>
 
 <style scoped>
-/* --- CONTENEDOR PRINCIPAL FLEXIBLE --- */
 .dictionary-container {
     display: flex;
     flex-direction: column;
-    /* Altura mínima: ajusta esto según el tamaño de pantalla deseado.
-       600px suele ser suficiente para mostrar unas 10-15 filas sin scroll. */
     min-height: 650px; 
 }
 
 .header-section {
-    /* El header no crece, ocupa lo que necesita */
     flex: 0 0 auto; 
 }
 
 .word-list {
-    /* El cuerpo CRECE para ocupar todo el espacio disponible vacío */
     flex: 1 0 auto; 
     
     list-style: none;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
-    /* align-content: start evita que las filas se estiren verticalmente si hay pocas */
     align-content: start; 
     gap: 12px;
     margin-bottom: 24px;
 }
 
 .pagination {
-    /* El footer no crece, pero margin-top: auto asegura empuje */
     flex: 0 0 auto;
     margin-top: auto; 
     
@@ -140,7 +133,6 @@ function normalize(text = '') {
     border-top: 1px solid var(--border);
 }
 
-/* --- ESTILOS DECORATIVOS (Igual que antes) --- */
 
 .section-title {
     color: var(--text-primary);
