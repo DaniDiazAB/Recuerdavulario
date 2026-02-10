@@ -12,7 +12,7 @@ import Diccionary from './components/Diccionary.vue';
 
 const API_URL = 'https://danidiaz.site/recuerdavulario/api/getData.php'
 const arrayWords = ref([])
-const gameType = ref("words")
+const gameType = ref("english")
 
 
 provide('arrayWords', arrayWords)
